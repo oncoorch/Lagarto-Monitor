@@ -1,0 +1,378 @@
+:root {
+  color-scheme: dark;
+  --bg: #06090f;
+  --panel: #0d1421;
+  --panel-2: #111a2a;
+  --line: #25344d;
+  --text: #f4f7fb;
+  --muted: #96a3b7;
+  --cyan: #16c7d9;
+  --blue: #2f6df6;
+  --green: #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, rgba(22, 199, 217, 0.12), transparent 34%), var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.mono {
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: min(460px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 32px;
+  background: rgba(13, 20, 33, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.login-card h1,
+.login-card p {
+  margin: 0;
+}
+
+.login-card p {
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.login-card label {
+  color: #cdd7e6;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.login-card input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  color: var(--text);
+  background: #101829;
+  border: 1px solid #354762;
+  border-radius: 6px;
+}
+
+.login-card button,
+.modal-actions button,
+.modal-actions a,
+.server-card button,
+header .ghost {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  background: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.brand-lock {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--cyan);
+  color: #06111f;
+}
+
+.error {
+  padding: 10px 12px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 6px;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  background: rgba(6, 10, 18, 0.92);
+  border-right: 1px solid var(--line);
+}
+
+.sidebar button,
+.logo {
+  min-height: 42px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  text-align: left;
+}
+
+.sidebar button.active,
+.sidebar button:hover {
+  color: var(--text);
+  background: #122338;
+}
+
+.logo {
+  color: var(--text);
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.logo img {
+  width: 28px;
+  height: 28px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.content {
+  padding: 28px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+header h1,
+header p,
+.server-card h2,
+.server-card p,
+.metric-card h2,
+.soc-card h2,
+.soc-card p {
+  margin: 0;
+}
+
+header p,
+.server-card p,
+.metric-card span,
+.soc-card p,
+.modal p,
+.empty {
+  color: var(--muted);
+}
+
+header .ghost {
+  background: #142235;
+  border: 1px solid var(--line);
+}
+
+.server-grid,
+.monitor-grid,
+.soc-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.server-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.server-card,
+.metric-card,
+.table-card,
+.soc-card,
+.modal {
+  background: rgba(13, 20, 33, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.server-card {
+  min-height: 142px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.monitor-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.metric-card,
+.table-card {
+  padding: 18px;
+}
+
+.metric-card strong {
+  display: block;
+  font-size: 36px;
+  margin: 16px 0 4px;
+}
+
+.table-card {
+  grid-column: 1 / -1;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #1b2940;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: #cdd7e6;
+}
+
+.soc-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.soc-card {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 18px;
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #fef3c7;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.pill.on {
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.66);
+}
+
+.modal {
+  width: min(720px, 100%);
+  max-height: 84vh;
+  overflow: auto;
+  padding: 22px;
+}
+
+.service-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.service-list button {
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: 24px 1fr 20px;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  background: #101a2a;
+  border: 1px solid #263852;
+  border-radius: 6px;
+  padding: 0 14px;
+  text-align: left;
+}
+
+pre {
+  overflow: auto;
+  padding: 14px;
+  background: #07101d;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 820px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    height: auto;
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .content {
+    padding: 18px;
+  }
+
+  .monitor-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "groups": [
+    {
+      "key": "aigents",
+      "name": "Aigents",
+      "servers": [
+        {
+          "name": "147.93.2.154 venekia-aigentss-com",
+          "ip": "147.93.2.154",
+          "hostname": "venekia-aigentss-com",
+          "services": [
+            {
+              "type": "chatwoot",
+              "name": "Chatwoot Admin",
+              "url": "https://chatwoot.example.com",
+              "credentials": {
+                "email": "admin@example.com",
+                "password": "paste-in-dokploy-only"
+              }
+            },
+            {
+              "type": "n8n",
+              "name": "n8n",
+              "url": "https://automation.example.com",
+              "credentials": {
+                "email": "admin@example.com",
+                "password": "paste-in-dokploy-only"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nicop",
+      "name": "NICOP",
+      "servers": [
+        {
+          "name": "169.58.168.77 oncoorch.com",
+          "ip": "169.58.168.77",
+          "hostname": "oncoorch.com",
+          "services": [
+            {
+              "type": "chatwoot",
+              "name": "CRM Komodo",
+              "url": "https://crm.oncoorch.com",
+              "credentials": {
+                "email": "admin@example.com",
+                "password": "paste-in-dokploy-only"
+              }
+            },
+            {
+              "type": "n8n",
+              "name": "Automation CRM",
+              "url": "https://automation-crm.oncoorch.com",
+              "credentials": {
+                "email": "admin@example.com",
+                "password": "paste-in-dokploy-only"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
