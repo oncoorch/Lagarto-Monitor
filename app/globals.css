@@ -346,6 +346,30 @@ pre {
   border-radius: 6px;
 }
 
+.reauth {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+.reauth label {
+  color: #cdd7e6;
+  font-weight: 800;
+}
+
+.reauth input {
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--text);
+  background: #101829;
+  border: 1px solid #354762;
+  border-radius: 6px;
+}
+
+.reauth span {
+  color: #fecaca;
+}
+
 .modal-actions {
   display: flex;
   gap: 10px;

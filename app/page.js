@@ -50,6 +50,9 @@ export default function Page() {
   const [activeMenu, setActiveMenu] = useState("aigents");
   const [selectedServer, setSelectedServer] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
+  const [revealedService, setRevealedService] = useState("");
+  const [reauthPassword, setReauthPassword] = useState("");
+  const [reauthError, setReauthError] = useState("");
   const [metrics, setMetrics] = useState(null);
   const [soc, setSoc] = useState([]);
 
@@ -101,6 +104,33 @@ export default function Page() {
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
+  }
+
+  async function revealService() {
+    setReauthError("");
+    const response = await fetch("/api/auth/reauth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: reauthPassword }),
+    });
+    if (!response.ok) {
+      setReauthError("No se pudo validar la clave");
+      return;
+    }
+    setRevealedService(serviceKey(selectedService));
+    setReauthPassword("");
+  }
+
+  function serviceKey(service) {
+    return `${service?.name || ""}|${service?.url || ""}`;
+  }
+
+  function maskCredentials(credentials = {}) {
+    return Object.fromEntries(Object.entries(credentials).map(([key, value]) => {
+      const text = String(value ?? "");
+      if (!text) return [key, ""];
+      return [key, "•".repeat(Math.min(Math.max(text.length, 8), 18))];
+    }));
   }
 
   if (!user) {
@@ -208,7 +238,12 @@ export default function Page() {
             <p>{selectedServer.ip} · {selectedServer.hostname}</p>
             <div className="service-list">
               {(selectedServer.services || []).length ? selectedServer.services.map((service) => (
-                <button key={service.name} onClick={() => setSelectedService(service)}>
+                <button key={service.name} onClick={() => {
+                  setSelectedService(service);
+                  setRevealedService("");
+                  setReauthPassword("");
+                  setReauthError("");
+                }}>
                   {serviceIcon(service.type)}
                   <span>{service.name}</span>
                   <ExternalLink size={16} />
@@ -224,9 +259,33 @@ export default function Page() {
           <div className="modal" onClick={(event) => event.stopPropagation()}>
             <h2>{selectedService.name}</h2>
             <p>{selectedService.url}</p>
-            <pre>{JSON.stringify(selectedService.credentials || {}, null, 2)}</pre>
+            <pre>{JSON.stringify(
+              revealedService === serviceKey(selectedService)
+                ? selectedService.credentials || {}
+                : maskCredentials(selectedService.credentials || {}),
+              null,
+              2
+            )}</pre>
+            {revealedService !== serviceKey(selectedService) && (
+              <div className="reauth">
+                <label>Confirma tu clave para revelar credenciales</label>
+                <input
+                  type="password"
+                  value={reauthPassword}
+                  onChange={(event) => setReauthPassword(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") revealService();
+                  }}
+                />
+                {reauthError && <span>{reauthError}</span>}
+              </div>
+            )}
             <div className="modal-actions">
-              <button onClick={() => navigator.clipboard.writeText(JSON.stringify(selectedService.credentials || {}, null, 2))}><Copy size={18} />Copiar</button>
+              {revealedService === serviceKey(selectedService) ? (
+                <button onClick={() => navigator.clipboard.writeText(JSON.stringify(selectedService.credentials || {}, null, 2))}><Copy size={18} />Copiar</button>
+              ) : (
+                <button onClick={revealService}><Eye size={18} />Revelar</button>
+              )}
               {selectedService.url && <a href={selectedService.url} target="_blank" rel="noreferrer">Abrir</a>}
             </div>
           </div>

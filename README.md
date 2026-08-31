@@ -2,6 +2,8 @@
 
 Aplicacion interna para centralizar accesos, monitoreo y controles defensivos de los VPS NICOP y Aigents.
 
+Este repositorio debe desplegarse como un proyecto independiente en Dokploy. No debe mezclarse con `crm-agentico` ni con otros proyectos: cada repositorio operativo debe tener su propio proyecto, entorno, dominio y ciclo de despliegue.
+
 ## Estado
 
 Esta version inicial incluye:
@@ -31,7 +33,7 @@ npm run dev
 ## Generar Usuario
 
 ```bash
-npm --silent run create-users -- admin MonitorAdmin 'cambia-esta-clave' admin
+npm --silent run create-users -- admin:MonitorAdmin:'cambia-esta-clave':admin jairo:Jairo:'otra-clave':editor
 ```
 
 Pega la salida completa en Dockploy como `MONITOR_USERS_B64`.
