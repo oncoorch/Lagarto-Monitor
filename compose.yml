@@ -23,6 +23,18 @@ services:
         condition: service_healthy
     ports:
       - "3200:3200"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.lagarto-monitor-web.rule=Host(`monitor.oncoorch.com`)
+      - traefik.http.routers.lagarto-monitor-web.entrypoints=web
+      - traefik.http.routers.lagarto-monitor-web.middlewares=lagarto-monitor-https
+      - traefik.http.middlewares.lagarto-monitor-https.redirectscheme.scheme=https
+      - traefik.http.routers.lagarto-monitor-websecure.rule=Host(`monitor.oncoorch.com`)
+      - traefik.http.routers.lagarto-monitor-websecure.entrypoints=websecure
+      - traefik.http.routers.lagarto-monitor-websecure.tls=true
+      - traefik.http.routers.lagarto-monitor-websecure.tls.certresolver=letsencrypt
+      - traefik.http.routers.lagarto-monitor-websecure.service=lagarto-monitor
+      - traefik.http.services.lagarto-monitor.loadbalancer.server.port=3200
 
   monitor_postgres:
     image: postgres:16-alpine
